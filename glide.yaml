@@ -1,0 +1,19 @@
+package: github.com/deshboard/boilerplate-model-service
+import:
+- package: github.com/kelseyhightower/envconfig
+  version: ^1.3.0
+- package: github.com/joho/godotenv
+  version: ^1.2.0
+- package: github.com/goph/fxt
+  version: ^0.5.2
+- package: github.com/grpc-ecosystem/go-grpc-middleware
+- package: github.com/grpc-ecosystem/go-grpc-prometheus
+  version: ^1.1.0
+- package: github.com/prometheus/client_golang
+  version: ^0.8.0
+- package: github.com/go-sql-driver/mysql
+  version: ^1.3.0
+testImport:
+- package: github.com/DATA-DOG/godog
+  version: ^0.7.2
+- package: github.com/DATA-DOG/go-txdb

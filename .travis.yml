@@ -1,0 +1,54 @@
+language: go
+
+sudo: false
+
+services:
+    - docker
+    - mysql
+
+go:
+    - 1.8.x
+    - 1.9.x
+    - tip
+
+matrix:
+    allow_failures:
+        - go: tip
+
+env:
+    global:
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_USER=root
+        DB_PASS=""
+        DB_NAME=service
+
+before_install:
+    - mkdir -p $HOME/bin
+    - curl -sL https://get.binhq.io/binbrew | DEST=$HOME/bin NAME=bin bash
+    - bin get golang/dep@0.3.2 $HOME/bin
+    - make envcheck
+    - bin get mattes/migrate@3.0.0 $HOME/bin
+
+install: make setup
+
+before_script:
+    - export VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH}
+    - export $(make varexport-DOCKER_IMAGE)
+    - mysql -e 'CREATE DATABASE service;'
+    - make migrate
+
+script:
+    - TEST_RANDOMIZE=true make ARGS="-v" check
+    - if [[ $TRAVIS_TAG = "$VERSION" ]]; then export DOCKER_LATEST=true; fi
+    - make docker
+
+before_deploy: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+deploy:
+    provider: script
+    skip_cleanup: true
+    script: docker push $DOCKER_IMAGE
+    on:
+        all_branches: true
+        condition: $TRAVIS_GO_VERSION =~ ^1\.9(\.[0-9]+)?$

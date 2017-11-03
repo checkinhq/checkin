@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package checkin.checkin.v1alpha;
+
+import "checkin/protobuf/empty.proto";
+
+option go_package = "checkin";
+
+message CheckinRequest {
+    string date = 1;
+    string previous = 2;
+    bool goals_reached = 3;
+    string next = 4;
+    string blockers = 5;
+}
+
+service Checkin {
+    rpc Checkin(CheckinRequest) returns (protobuf.Empty);
+}
