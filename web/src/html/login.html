@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-main>
+            <el-row :gutter="20">
+                <el-col :span="8" :offset="8">
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>Login</span>
+                        </div>
+
+                        <el-form ref="form">
+                            <el-form-item>
+                                <el-input v-model="username" placeholder="Username" prefix-icon="fa fa-user-o"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-input v-model="password" type="password" placeholder="Password" prefix-icon="fa fa-key" auto-complete="off"></el-input>
+                            </el-form-item>
+
+                            <el-form-item>
+                                <el-button type="primary" @click="Submit" >Login</el-button>
+                                <el-button type="text">Forgotten password?</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-main>
+    </el-container>
+</div>
+
+<script type="text/javascript" src="assets/js/vue.js"></script>
+<script type="text/javascript" src="assets/js/element.js"></script>
+<script type="text/javascript" src="assets/js/login.js"></script>
+</body>
+</html>

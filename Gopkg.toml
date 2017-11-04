@@ -1,3 +1,5 @@
+ignored = ["github.com/gopherjs/gopherjs", "github.com/gopherjs/gopherjs/js"]
+
 [[constraint]]
   name = "github.com/kelseyhightower/envconfig"
   version = "1.3.0"
@@ -53,6 +55,11 @@
 [[constraint]]
   name = "github.com/DATA-DOG/godog"
   version = "0.7.2"
+
+# Web dependencies
+[[constraint]]
+  name = "github.com/oskca/gopherjs-vue"
+  branch = "master"
 
 # Transitive dependencies
 [[constraint]]

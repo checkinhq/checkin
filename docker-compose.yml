@@ -6,3 +6,8 @@ services:
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
             MYSQL_DATABASE: service
+
+    web:
+        image: nginx:1.13
+        volumes:
+            - ./web/dist:/usr/share/nginx/html:ro
