@@ -21,10 +21,10 @@
 
                         <el-form ref="form">
                             <el-form-item>
-                                <el-input v-model="username" placeholder="Username" prefix-icon="fa fa-user-o"></el-input>
+                                <el-input v-model="username" placeholder="Username" prefix-icon="fa fa-user-o" @keyup.enter.native="Submit"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-input v-model="password" type="password" placeholder="Password" prefix-icon="fa fa-key" auto-complete="off"></el-input>
+                                <el-input v-model="password" type="password" placeholder="Password" prefix-icon="fa fa-key" auto-complete="off" @keyup.enter.native="Submit"></el-input>
                             </el-form-item>
 
                             <el-form-item>
