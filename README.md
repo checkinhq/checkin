@@ -1,6 +1,6 @@
-# Boilerplate Model Service
+# Checkin
 
-[![Build Status](https://img.shields.io/travis/deshboard/boilerplate-model-service.svg?style=flat-square)](https://travis-ci.org/deshboard/boilerplate-model-service)
+[![Build Status](https://img.shields.io/travis/checkinhq/checkin.svg?style=flat-square)](https://travis-ci.org/checkinhq/checkin)
 
 
 ## Documentation
