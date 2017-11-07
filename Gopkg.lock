@@ -56,9 +56,10 @@
   version = "v1.6.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto","protoc-gen-go/descriptor","ptypes","ptypes/any","ptypes/duration","ptypes/timestamp"]
-  revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
+  revision = "1643683e1b54a9e88ad26d98f81400c8c9d9f4f9"
 
 [[projects]]
   name = "github.com/goph/clock"
@@ -91,6 +92,12 @@
   version = "v0.14.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/gopherjs/websocket"
+  packages = ["websocketjs"]
+  revision = "87ee47603f137e7f8419765b3621b3c36e715a08"
+
+[[projects]]
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
   packages = [".","recovery","tags","tracing/opentracing","util/metautils"]
   revision = "645b33ed7ba8739747bf2df55d0349d4bba2e7f6"
@@ -118,6 +125,18 @@
   name = "github.com/hashicorp/golang-lru"
   packages = ["simplelru"]
   revision = "0a025b7e63adc15a622f29b0b2c4c3848243bbf6"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/improbable-eng/grpc-web"
+  packages = ["go/grpcweb"]
+  revision = "0ab7201b53447db59d63ff3a95173e565baae10a"
+
+[[projects]]
+  name = "github.com/johanbrandhorst/protobuf"
+  packages = ["grpcweb","grpcweb/grpcwebjs","grpcweb/metadata","grpcweb/status","internal","jspb","proto"]
+  revision = "31da8ce827cbb5d269def799a4a38a476ae7223e"
+  version = "v0.4.2"
 
 [[projects]]
   name = "github.com/joho/godotenv"
@@ -208,6 +227,12 @@
   revision = "a1dba9ce8baed984a2495b658c82687f8157b98f"
 
 [[projects]]
+  name = "github.com/rs/cors"
+  packages = ["."]
+  revision = "7af7a1e09ba336d2ea14b1ce73bf693c6837dbf6"
+  version = "v1.2"
+
+[[projects]]
   branch = "master"
   name = "github.com/segmentio/ksuid"
   packages = ["."]
@@ -273,6 +298,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "86e3694c44da1bec7fd3395fd08fd08864edf7fa81e9b2f95e5f5c07aaedec30"
+  inputs-digest = "a5438bd84dfe0bd8033f47c4f8f29e8b30090003003c75391f911fd358818ed2"
   solver-name = "gps-cdcl"
   solver-version = 1

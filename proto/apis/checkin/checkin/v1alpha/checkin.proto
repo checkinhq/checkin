@@ -3,8 +3,10 @@ syntax = "proto3";
 package checkin.checkin.v1alpha;
 
 import "checkin/protobuf/empty.proto";
+import "github.com/johanbrandhorst/protobuf/proto/gopherjs.proto";
 
 option go_package = "checkin";
+option (gopherjs.gopherjs_package) = "checkin";
 
 message CheckinRequest {
     string date = 1;

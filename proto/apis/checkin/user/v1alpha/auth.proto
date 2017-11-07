@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package checkin.user.v1alpha;
 
+import "github.com/johanbrandhorst/protobuf/proto/gopherjs.proto";
+
 option go_package = "user";
+option (gopherjs.gopherjs_package) = "user";
 
 message LoginRequest {
     string email = 1;

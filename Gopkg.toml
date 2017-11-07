@@ -1,4 +1,4 @@
-ignored = ["github.com/gopherjs/gopherjs", "github.com/gopherjs/gopherjs/js"]
+ignored = ["github.com/gopherjs/gopherjs", "github.com/gopherjs/gopherjs/js", "github.com/google/protobuf/examples/tutorial"]
 
 [[constraint]]
   name = "github.com/kelseyhightower/envconfig"
@@ -46,6 +46,14 @@ ignored = ["github.com/gopherjs/gopherjs", "github.com/gopherjs/gopherjs/js"]
 [[constraint]]
   name = "github.com/dgrijalva/jwt-go"
   version = "3.1.0"
+
+[[constraint]]
+  name = "github.com/improbable-eng/grpc-web"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/johanbrandhorst/protobuf"
+  version = "0.4.2"
 
 
 # Test dependencies

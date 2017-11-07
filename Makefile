@@ -21,6 +21,7 @@ setup:: dep .env .env.test ## Setup the project for development
 .PHONY: dep
 dep: ## Install dependencies
 	@dep ensure
+	@rm -rf vendor/github.com/oskca/gopherjs-vue/inc_*
 
 .env: ## Create local env file
 	cp .env.dist .env

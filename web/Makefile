@@ -5,7 +5,7 @@ js:
 	mkdir -p dist/assets/js/
 	cp -r node_modules/vue/dist/vue.js dist/assets/js/
 	cp -r node_modules/element-ui/lib/index.js dist/assets/js/element.js
-	gopherjs build ../pkg/web/login.go -o dist/assets/js/login.js
+	gopherjs build pkg/login.go pkg/config.go -o dist/assets/js/login.js
 
 
 .PHONY: css

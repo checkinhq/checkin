@@ -58,7 +58,7 @@ func main() {
 			// gRPC server
 			NewService,
 			NewGrpcConfig,
-			fxgrpc.NewServer,
+			NewGrpcServer,
 
 			fxtracing.NewTracer,
 
