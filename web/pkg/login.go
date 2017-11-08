@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/cathalgarvey/fmtless"
 	"github.com/checkinhq/checkin/web/apis/checkin/user/v1alpha"
+	"github.com/checkinhq/checkin/web/pkg/config"
 	"github.com/gopherjs/gopherjs/js"
 	"github.com/oskca/gopherjs-vue"
 )
@@ -75,14 +76,14 @@ func (m *Model) Submit() {
 }
 
 func main() {
-	config, err := LoadConfig()
+	c, err := config.Load()
 	if err != nil {
 		panic(err)
 	}
 
 	m := &Model{
 		Object:                js.Global.Get("Object").New(),
-		authenticationService: user.NewAuthenticationClient(config.GrpcHost),
+		authenticationService: user.NewAuthenticationClient(c.GrpcHost),
 	}
 
 	// field assignment is required in this way to make data passing works
@@ -94,17 +95,17 @@ func main() {
 	m.Rules = map[string][]map[string]interface{}{
 		"email": {
 			{
-				"type": "email",
+				"type":     "email",
 				"required": true,
-				"message": "Please enter a valid email address!",
-				"trigger": "blur",
+				"message":  "Please enter a valid email address!",
+				"trigger":  "blur",
 			},
 		},
 		"password": {
 			{
 				"required": true,
-				"message": "Please enter your password!",
-				"trigger": "blur",
+				"message":  "Please enter your password!",
+				"trigger":  "blur",
 			},
 		},
 	}

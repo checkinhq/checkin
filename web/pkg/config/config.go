@@ -1,32 +1,27 @@
-package main
+package config
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-
-"github.com/gopherjs/gopherjs/js"
+	"github.com/cathalgarvey/fmtless"
+	"github.com/cathalgarvey/fmtless/encoding/json"
+	"github.com/gopherjs/gopherjs/js"
+	"honnef.co/go/js/xhr"
 )
 
 type Config struct {
 	GrpcHost string `json:"grpc_host"`
 }
 
-func LoadConfig() (*Config, error) {
+func Load() (*Config, error) {
 	scheme := js.Global.Get("location").Get("protocol").String()
 	hostname := js.Global.Get("location").Get("hostname").String()
 
-
-	response, err := http.Get(fmt.Sprintf("%s//%s/config.json", scheme, hostname))
+	data, err := xhr.Send("GET", fmt.Sprintf("%s//%s/config.json", scheme, hostname), nil)
 	if err != nil {
 		return nil, err
 	}
-	defer response.Body.Close()
-
-	decoder := json.NewDecoder(response.Body)
 
 	config := new(Config)
-	err = decoder.Decode(config)
+	err = json.Unmarshal(data, config)
 	if err != nil {
 		return nil, err
 	}

@@ -55,6 +55,14 @@ ignored = ["github.com/gopherjs/gopherjs", "github.com/gopherjs/gopherjs/js", "g
   name = "github.com/johanbrandhorst/protobuf"
   version = "0.4.2"
 
+[[constraint]]
+  branch = "master"
+  name = "honnef.co/go/js/xhr"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/cathalgarvey/fmtless"
+
 
 # Test dependencies
 [[constraint]]
