@@ -3,10 +3,10 @@ package app
 import (
 	"database/sql"
 
-	user_api "github.com/checkinhq/checkin/apis/checkin/user/v1alpha"
-	"github.com/checkinhq/checkin/pkg/adapters/database"
-	user_app "github.com/checkinhq/checkin/pkg/app/user"
-	"github.com/checkinhq/checkin/pkg/domain/user"
+	proto "github.com/checkinhq/checkin/apis/checkin/user/v1alpha"
+	"github.com/checkinhq/checkin/pkg/user/app"
+	"github.com/checkinhq/checkin/pkg/user/domain"
+	"github.com/checkinhq/checkin/pkg/user/infrastructure/database"
 	"github.com/go-kit/kit/log"
 	"github.com/goph/clock"
 	"github.com/goph/emperror"
@@ -20,7 +20,7 @@ func User() fx.Option {
 			NewUserRepository,
 			NewUserAuthenticationService,
 		),
-		fx.Invoke(user_api.RegisterAuthenticationServer),
+		fx.Invoke(proto.RegisterAuthenticationServer),
 	)
 }
 
@@ -28,20 +28,20 @@ func User() fx.Option {
 type UserAuthenticationServiceParams struct {
 	dig.In
 
-	Repository   user.Repository
+	Repository   domain.Repository
 	Logger       log.Logger       `optional:"true"`
 	ErrorHandler emperror.Handler `optional:"true"`
 }
 
 // NewService returns a new service instance.
-func NewUserAuthenticationService(params UserAuthenticationServiceParams) user_api.AuthenticationServer {
-	return user_app.NewAuthenticationService(
-		user.NewAuthenticationService(params.Repository),
-		user_app.Logger(params.Logger),
-		user_app.ErrorHandler(params.ErrorHandler),
+func NewUserAuthenticationService(params UserAuthenticationServiceParams) proto.AuthenticationServer {
+	return app.NewAuthenticationService(
+		domain.NewAuthenticationService(params.Repository),
+		app.Logger(params.Logger),
+		app.ErrorHandler(params.ErrorHandler),
 	)
 }
 
-func NewUserRepository(db *sql.DB) user.Repository {
+func NewUserRepository(db *sql.DB) domain.Repository {
 	return database.NewUserRepository(db, clock.SystemClock)
 }
