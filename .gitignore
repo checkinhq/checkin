@@ -12,3 +12,5 @@
 !/.idea/runConfigurations/
 !/.idea/go.imports.xml
 !/.idea/sqldialects.xml
+!/.idea/modules.xml
+!/.idea/*.iml

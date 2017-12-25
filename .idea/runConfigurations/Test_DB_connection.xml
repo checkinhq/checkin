@@ -2,12 +2,11 @@
   <configuration default="false" name="Test DB connection" type="GoTestRunConfiguration" factoryName="Go Test">
     <module name="" />
     <working_directory value="$PROJECT_DIR$/" />
-    <go_parameters value="-tags integration" />
+    <go_parameters value="" />
     <framework value="gotest" />
     <kind value="DIRECTORY" />
-    <directory value="$PROJECT_DIR$/app" />
+    <directory value="$PROJECT_DIR$/test/db" />
     <filePath value="$PROJECT_DIR$" />
-    <pattern value="^TestDbConnection(.*)?$" />
     <method />
   </configuration>
 </component>
