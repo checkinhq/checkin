@@ -63,7 +63,7 @@ func CheckinClock(c clock.Clock) CheckinRepositoryOption {
 	}
 }
 
-func NewCheckinRepository(opts ...CheckinRepositoryOption) domain.Repository {
+func NewCheckinRepository(opts ...CheckinRepositoryOption) domain.CheckinRepository {
 	repo := new(checkinRepository)
 
 	for _, opt := range opts {

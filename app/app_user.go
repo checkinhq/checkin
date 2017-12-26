@@ -28,7 +28,7 @@ func User() fx.Option {
 type UserAuthenticationServiceParams struct {
 	dig.In
 
-	Repository   domain.Repository
+	Repository   domain.UserRepository
 	Logger       log.Logger       `optional:"true"`
 	ErrorHandler emperror.Handler `optional:"true"`
 }
@@ -42,6 +42,6 @@ func NewUserAuthenticationService(params UserAuthenticationServiceParams) proto.
 	)
 }
 
-func NewUserRepository(db *sql.DB) domain.Repository {
+func NewUserRepository(db *sql.DB) domain.UserRepository {
 	return database.NewUserRepository(db, clock.SystemClock)
 }

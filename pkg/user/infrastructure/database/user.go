@@ -14,7 +14,7 @@ type userRepository struct {
 	clock clock.Clock
 }
 
-func NewUserRepository(db *sql.DB, c clock.Clock) domain.Repository {
+func NewUserRepository(db *sql.DB, c clock.Clock) domain.UserRepository {
 	repo := &userRepository{
 		db:    db,
 		clock: c,

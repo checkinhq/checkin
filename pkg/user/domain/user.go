@@ -30,8 +30,8 @@ func NewUser() *User {
 	}
 }
 
-// Repository provides access to a user store.
-type Repository interface {
+// UserRepository provides access to a user store.
+type UserRepository interface {
 	// FindByID finds a user based on it's internal ID.
 	FindByID(id int64) (*User, error)
 

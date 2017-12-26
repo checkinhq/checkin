@@ -16,7 +16,7 @@ type Checkin struct {
 	UpdatedAt time.Time
 }
 
-type Repository interface {
+type CheckinRepository interface {
 	// Store creates or updates a checkin.
 	Store(checkin *Checkin) error
 }

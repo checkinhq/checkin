@@ -64,7 +64,7 @@ func UserClock(c clock.Clock) UserRepositoryOption {
 	}
 }
 
-func NewUserRepository(opts ...UserRepositoryOption) domain.Repository {
+func NewUserRepository(opts ...UserRepositoryOption) domain.UserRepository {
 	repo := new(userRepository)
 
 	for _, opt := range opts {

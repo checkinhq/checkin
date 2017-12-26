@@ -17,12 +17,12 @@ type AuthenticationService interface {
 }
 
 type authenticationService struct {
-	userRepository Repository
+	userRepository UserRepository
 	secret         string
 }
 
 // NewAuthenticationService returns a new authentication service.
-func NewAuthenticationService(userRepository Repository) AuthenticationService {
+func NewAuthenticationService(userRepository UserRepository) AuthenticationService {
 	return &authenticationService{
 		userRepository: userRepository,
 		secret:         "secret",
