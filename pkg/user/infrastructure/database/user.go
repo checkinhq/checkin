@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 
+	"github.com/cathalgarvey/fmtless"
 	"github.com/checkinhq/checkin/pkg/user/domain"
 	"github.com/goph/clock"
 	"github.com/pkg/errors"
@@ -15,104 +16,36 @@ type userRepository struct {
 }
 
 func NewUserRepository(db *sql.DB, c clock.Clock) domain.UserRepository {
-	repo := &userRepository{
-		db:    db,
-		clock: c,
-	}
-
 	// Default clock
 	if c == nil {
 		c = clock.SystemClock
+	}
+
+	repo := &userRepository{
+		db:    db,
+		clock: c,
 	}
 
 	return repo
 }
 
 func (r *userRepository) FindByID(id int64) (*domain.User, error) {
-	u := new(domain.User)
-
-	err := r.db.QueryRow(
-		`
-		SELECT
-			id,
-			uid,
-			email,
-			password,
-			first_name,
-			last_name,
-			created_at,
-			updated_at
-		FROM
-			users/*t*/
-		WHERE
-			id = ?
-		`,
-		id,
-	).Scan(
-		&u.ID,
-		&u.UID,
-		&u.Email,
-		&u.Password,
-		&u.FirstName,
-		&u.LastName,
-		&u.CreatedAt,
-		&u.UpdatedAt,
-	)
-
-	if err == sql.ErrNoRows {
-		return nil, errors.Wrap(err, "user not found")
-	} else if err != nil {
-		return nil, errors.Wrap(err, "searching for user failed")
-	}
-
-	return u, nil
+	return r.findBy("id", id)
 }
 
 func (r *userRepository) FindByUID(uid ksuid.KSUID) (*domain.User, error) {
-	u := new(domain.User)
-
-	err := r.db.QueryRow(
-		`
-		SELECT
-			id,
-			uid,
-			email,
-			password,
-			first_name,
-			last_name,
-			created_at,
-			updated_at
-		FROM
-			users/*t*/
-		WHERE
-			uid = ?
-		`,
-		uid,
-	).Scan(
-		&u.ID,
-		&u.UID,
-		&u.Email,
-		&u.Password,
-		&u.FirstName,
-		&u.LastName,
-		&u.CreatedAt,
-		&u.UpdatedAt,
-	)
-
-	if err == sql.ErrNoRows {
-		return nil, errors.Wrap(err, "user not found")
-	} else if err != nil {
-		return nil, errors.Wrap(err, "searching for user failed")
-	}
-
-	return u, nil
+	return r.findBy("uid", uid)
 }
 
 func (r *userRepository) FindByEmail(email string) (*domain.User, error) {
+	return r.findBy("email", email)
+}
+
+func (r *userRepository) findBy(field string, value interface{}) (*domain.User, error) {
 	u := new(domain.User)
 
 	err := r.db.QueryRow(
-		`
+		fmt.Sprintf(`
 		SELECT
 			id,
 			uid,
@@ -125,9 +58,9 @@ func (r *userRepository) FindByEmail(email string) (*domain.User, error) {
 		FROM
 			users/*t*/
 		WHERE
-			email = ?
-		`,
-		email,
+			%s = ?
+		`, field),
+		value,
 	).Scan(
 		&u.ID,
 		&u.UID,
@@ -140,9 +73,9 @@ func (r *userRepository) FindByEmail(email string) (*domain.User, error) {
 	)
 
 	if err == sql.ErrNoRows {
-		return nil, errors.Wrap(err, "user not found")
+		return nil, domain.ErrUserNotFound
 	} else if err != nil {
-		return nil, errors.Wrap(err, "searching for user failed")
+		return nil, errors.Wrap(err, "finding user failed")
 	}
 
 	return u, nil

@@ -1,10 +1,13 @@
 package domain
 
 import (
+	"errors"
 	"time"
 
 	"github.com/segmentio/ksuid"
 )
+
+var ErrUserNotFound = errors.New("user not found")
 
 // User is the central class in the domain model.
 type User struct {

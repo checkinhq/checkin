@@ -90,49 +90,25 @@ func NewUserRepository(opts ...UserRepositoryOption) domain.UserRepository {
 }
 
 func (r *userRepository) FindByID(id int64) (*domain.User, error) {
-	// Create read-only transaction
-	txn := r.db.Txn(false)
-	defer txn.Abort()
-
-	raw, err := txn.First("users", "id", id)
-	if err != nil {
-		return nil, errors.Wrap(err, "user not found")
-	}
-
-	u, ok := raw.(*domain.User)
-	if !ok {
-		return nil, errors.New("invalid data in the user record")
-	}
-
-	return u, nil
+	return r.findBy("id", id)
 }
 
 func (r *userRepository) FindByUID(uid ksuid.KSUID) (*domain.User, error) {
-	// Create read-only transaction
-	txn := r.db.Txn(false)
-	defer txn.Abort()
-
-	raw, err := txn.First("users", "uid", uid)
-	if err != nil {
-		return nil, errors.Wrap(err, "user not found")
-	}
-
-	u, ok := raw.(*domain.User)
-	if !ok {
-		return nil, errors.New("invalid data in the user record")
-	}
-
-	return u, nil
+	return r.findBy("uid", uid)
 }
 
 func (r *userRepository) FindByEmail(email string) (*domain.User, error) {
+	return r.findBy("email", email)
+}
+
+func (r *userRepository) findBy(field string, value interface{}) (*domain.User, error) {
 	// Create read-only transaction
 	txn := r.db.Txn(false)
 	defer txn.Abort()
 
-	raw, err := txn.First("users", "email", email)
+	raw, err := txn.First("users", field, value)
 	if err != nil {
-		return nil, errors.Wrap(err, "user not found")
+		return nil, domain.ErrUserNotFound
 	}
 
 	u, ok := raw.(*domain.User)

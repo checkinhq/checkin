@@ -47,7 +47,7 @@ func TestDbRepository_FindByID_NotFound(t *testing.T) {
 	expected := newUser(t, now.Now())
 
 	_, err = repo.FindByID(expected.ID)
-	assert.EqualError(t, err, "user not found: sql: no rows in result set")
+	assert.Equal(t, err, domain.ErrUserNotFound)
 }
 
 func TestDbRepository_FindByUID(t *testing.T) {
@@ -80,7 +80,7 @@ func TestDbRepository_FindByUID_NotFound(t *testing.T) {
 	expected := newUser(t, now.Now())
 
 	_, err = repo.FindByUID(expected.UID)
-	assert.EqualError(t, err, "user not found: sql: no rows in result set")
+	assert.Equal(t, err, domain.ErrUserNotFound)
 }
 
 func TestDbRepository_FindByEmail(t *testing.T) {
@@ -113,7 +113,7 @@ func TestDbRepository_FindByEmail_NotFound(t *testing.T) {
 	expected := newUser(t, now.Now())
 
 	_, err = repo.FindByEmail(expected.Email)
-	assert.EqualError(t, err, "user not found: sql: no rows in result set")
+	assert.Equal(t, err, domain.ErrUserNotFound)
 }
 
 func TestDbRepository_Create(t *testing.T) {
