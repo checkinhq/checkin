@@ -28,3 +28,13 @@ func (p Password) Verify(password string) error {
 func (p Password) String() string {
 	return string(p)
 }
+
+// Change handles password change logic requiring the current password.
+func (p *Password) Change(currentPassword string, newPassword string) error {
+	err := p.Verify(currentPassword)
+	if err != nil {
+		return err
+	}
+
+	return p.Hash(newPassword)
+}

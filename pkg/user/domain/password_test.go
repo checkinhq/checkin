@@ -41,3 +41,16 @@ func TestPassword_String(t *testing.T) {
 
 	assert.Equal(t, string(hash), password.String())
 }
+
+func TestPassword_Change(t *testing.T) {
+	currentPassword := "password"
+	hash, err := bcrypt.GenerateFromPassword([]byte(currentPassword), 10)
+	require.NoError(t, err)
+
+	var password domain.Password = hash
+
+	newPassword := "new password"
+	err = password.Change(currentPassword, newPassword)
+	assert.NoError(t, err)
+	assert.NoError(t, password.Verify(newPassword))
+}
