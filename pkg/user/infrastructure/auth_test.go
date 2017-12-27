@@ -1,9 +1,10 @@
-package domain_test
+package infrastructure_test
 
 import (
 	"testing"
 
 	"github.com/checkinhq/checkin/pkg/user/domain"
+	"github.com/checkinhq/checkin/pkg/user/infrastructure"
 	"github.com/checkinhq/checkin/pkg/user/infrastructure/inmem"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/assert"
@@ -12,7 +13,7 @@ import (
 
 func TestAuthenticationService_Login(t *testing.T) {
 	repo := inmem.NewUserRepository()
-	service := domain.NewAuthenticationService(repo)
+	service := infrastructure.NewAuthenticationService(repo)
 
 	u := domain.NewUser()
 	u.Password.Hash("password")
@@ -41,8 +42,8 @@ func TestAuthenticationService_Login(t *testing.T) {
 
 func TestAuthenticationService_Login_UserNotFound(t *testing.T) {
 	repo := inmem.NewUserRepository()
-	service := domain.NewAuthenticationService(repo)
+	service := infrastructure.NewAuthenticationService(repo)
 
 	_, err := service.Login("john@doe.com", "password")
-	assert.Equal(t, domain.ErrAuthenticationFailed, err)
+	assert.Equal(t, infrastructure.ErrAuthenticationFailed, err)
 }

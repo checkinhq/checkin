@@ -2,7 +2,7 @@ package app
 
 import (
 	api "github.com/checkinhq/checkin/apis/checkin/user/v1alpha"
-	"github.com/checkinhq/checkin/pkg/user/domain"
+	"github.com/checkinhq/checkin/pkg/user/infrastructure"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/emperror"
@@ -30,14 +30,14 @@ func ErrorHandler(l emperror.Handler) AuthenticationServiceOption {
 
 // AuthenticationService contains the main controller logic.
 type AuthenticationService struct {
-	service domain.AuthenticationService
+	service *infrastructure.AuthenticationService
 
 	logger       log.Logger
 	errorHandler emperror.Handler
 }
 
 // NewAuthenticationService creates a new service object.
-func NewAuthenticationService(service domain.AuthenticationService, opts ...AuthenticationServiceOption) *AuthenticationService {
+func NewAuthenticationService(service *infrastructure.AuthenticationService, opts ...AuthenticationServiceOption) *AuthenticationService {
 	s := new(AuthenticationService)
 
 	s.service = service
@@ -61,7 +61,7 @@ func NewAuthenticationService(service domain.AuthenticationService, opts ...Auth
 
 func (s *AuthenticationService) Login(ctx context.Context, request *api.LoginRequest) (*api.LoginResponse, error) {
 	token, err := s.service.Login(request.GetEmail(), request.GetPassword())
-	if err == domain.ErrAuthenticationFailed {
+	if err == infrastructure.ErrAuthenticationFailed {
 		level.Debug(s.logger).Log(
 			"msg", "authentication failed",
 			"email", request.GetEmail(),

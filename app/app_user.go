@@ -6,6 +6,7 @@ import (
 	proto "github.com/checkinhq/checkin/apis/checkin/user/v1alpha"
 	"github.com/checkinhq/checkin/pkg/user/app"
 	"github.com/checkinhq/checkin/pkg/user/domain"
+	"github.com/checkinhq/checkin/pkg/user/infrastructure"
 	"github.com/checkinhq/checkin/pkg/user/infrastructure/database"
 	"github.com/go-kit/kit/log"
 	"github.com/goph/clock"
@@ -36,7 +37,7 @@ type UserAuthenticationServiceParams struct {
 // NewService returns a new service instance.
 func NewUserAuthenticationService(params UserAuthenticationServiceParams) proto.AuthenticationServer {
 	return app.NewAuthenticationService(
-		domain.NewAuthenticationService(params.Repository),
+		infrastructure.NewAuthenticationService(params.Repository),
 		app.Logger(params.Logger),
 		app.ErrorHandler(params.ErrorHandler),
 	)
