@@ -44,5 +44,5 @@ func NewUserAuthenticationService(params UserAuthenticationServiceParams) proto.
 }
 
 func NewUserRepository(db *sql.DB) domain.UserRepository {
-	return database.NewUserRepository(db, clock.SystemClock)
+	return database.NewUserRepository(db, database.Clock(clock.SystemClock))
 }

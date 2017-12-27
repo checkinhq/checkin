@@ -24,7 +24,7 @@ func TestDbRepository_FindByID(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 	id := saveUser(t, db, expected)
@@ -42,7 +42,7 @@ func TestDbRepository_FindByID_NotFound(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 
@@ -57,7 +57,7 @@ func TestDbRepository_FindByUID(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 	id := saveUser(t, db, expected)
@@ -75,7 +75,7 @@ func TestDbRepository_FindByUID_NotFound(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 
@@ -90,7 +90,7 @@ func TestDbRepository_FindByEmail(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 	id := saveUser(t, db, expected)
@@ -108,7 +108,7 @@ func TestDbRepository_FindByEmail_NotFound(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 
@@ -123,7 +123,7 @@ func TestDbRepository_Create(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 
@@ -141,7 +141,7 @@ func TestDbRepository_Update(t *testing.T) {
 
 	now := clock.StoppedAt(clock.SystemClock.Now().UTC().Truncate(time.Second))
 
-	repo := database.NewUserRepository(db, now)
+	repo := database.NewUserRepository(db, database.Clock(now))
 
 	expected := newUser(t, now.Now())
 	id := saveUser(t, db, expected)

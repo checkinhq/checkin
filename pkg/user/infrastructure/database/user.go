@@ -10,20 +10,33 @@ import (
 	"github.com/segmentio/ksuid"
 )
 
+// Option sets a value in userRepository instance.
+type Option func(r *userRepository)
+
+// Clock returns a Option that sets the clock.
+func Clock(c clock.Clock) Option {
+	return func(r *userRepository) {
+		r.clock = c
+	}
+}
+
 type userRepository struct {
 	db    *sql.DB
 	clock clock.Clock
 }
 
-func NewUserRepository(db *sql.DB, c clock.Clock) domain.UserRepository {
-	// Default clock
-	if c == nil {
-		c = clock.SystemClock
-	}
-
+func NewUserRepository(db *sql.DB, opts ...Option) domain.UserRepository {
 	repo := &userRepository{
 		db:    db,
-		clock: c,
+	}
+
+	for _, opt := range opts {
+		opt(repo)
+	}
+
+	// Default clock
+	if repo.clock == nil {
+		repo.clock = clock.SystemClock
 	}
 
 	return repo
