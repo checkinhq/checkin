@@ -28,6 +28,16 @@ func TestUserRepository_FindByID(t *testing.T) {
 	assert.Equal(t, u, u2)
 }
 
+func TestUserRepository_FindByID_NotFound(t *testing.T) {
+	db, err := inmem.NewUserDB()
+	require.NoError(t, err)
+
+	repo := inmem.NewUserRepository(inmem.UserDB(db))
+
+	_, err = repo.FindByID(1)
+	assert.Equal(t, err, domain.ErrUserNotFound)
+}
+
 func TestUserRepository_FindByUID(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
@@ -43,6 +53,16 @@ func TestUserRepository_FindByUID(t *testing.T) {
 	assert.Equal(t, u, u2)
 }
 
+func TestUserRepository_FindByUID_NotFound(t *testing.T) {
+	db, err := inmem.NewUserDB()
+	require.NoError(t, err)
+
+	repo := inmem.NewUserRepository(inmem.UserDB(db))
+
+	_, err = repo.FindByUID(ksuid.New())
+	assert.Equal(t, err, domain.ErrUserNotFound)
+}
+
 func TestUserRepository_FindByEmail(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
@@ -56,6 +76,16 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	u2, err := repo.FindByEmail(u.Email)
 	require.NoError(t, err)
 	assert.Equal(t, u, u2)
+}
+
+func TestUserRepository_FindByEmail_NotFound(t *testing.T) {
+	db, err := inmem.NewUserDB()
+	require.NoError(t, err)
+
+	repo := inmem.NewUserRepository(inmem.UserDB(db))
+
+	_, err = repo.FindByEmail("john.doe@example.com")
+	assert.Equal(t, err, domain.ErrUserNotFound)
 }
 
 func TestUserRepository_Create(t *testing.T) {

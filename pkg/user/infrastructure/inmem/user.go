@@ -107,7 +107,7 @@ func (r *userRepository) findBy(field string, value interface{}) (*domain.User, 
 	defer txn.Abort()
 
 	raw, err := txn.First("users", field, value)
-	if err != nil {
+	if err != nil || raw == nil {
 		return nil, domain.ErrUserNotFound
 	}
 

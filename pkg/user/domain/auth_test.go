@@ -6,7 +6,7 @@ import (
 	"github.com/checkinhq/checkin/pkg/user/domain"
 	"github.com/checkinhq/checkin/pkg/user/infrastructure/inmem"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/magiconair/properties/assert"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -37,4 +37,12 @@ func TestAuthenticationService_Login(t *testing.T) {
 	require.True(t, ok)
 
 	assert.Equal(t, u.UID.String(), claims.Subject)
+}
+
+func TestAuthenticationService_Login_UserNotFound(t *testing.T) {
+	repo := inmem.NewUserRepository()
+	service := domain.NewAuthenticationService(repo)
+
+	_, err := service.Login("john@doe.com", "password")
+	assert.Equal(t, domain.ErrAuthenticationFailed, err)
 }

@@ -31,8 +31,10 @@ func NewAuthenticationService(userRepository UserRepository) AuthenticationServi
 
 func (s *authenticationService) Login(email string, password string) (string, error) {
 	user, err := s.userRepository.FindByEmail(email)
-	if err != nil {
+	if err == ErrUserNotFound {
 		return "", ErrAuthenticationFailed
+	} else if err != nil {
+		return "", err
 	}
 
 	err = user.Password.Verify(password)
