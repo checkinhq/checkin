@@ -4,6 +4,7 @@ import (
 	api "github.com/checkinhq/checkin/apis/checkin/user/v1alpha"
 	"github.com/checkinhq/checkin/pkg/user/domain"
 	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
 	"github.com/goph/emperror"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
@@ -61,7 +62,16 @@ func NewAuthenticationService(service domain.AuthenticationService, opts ...Auth
 func (s *AuthenticationService) Login(ctx context.Context, request *api.LoginRequest) (*api.LoginResponse, error) {
 	token, err := s.service.Login(request.GetEmail(), request.GetPassword())
 	if err == domain.ErrAuthenticationFailed {
+		level.Debug(s.logger).Log(
+			"msg", "authentication failed",
+			"email", request.GetEmail(),
+		)
+
 		return nil, status.Errorf(codes.Unauthenticated, "cannot authenticate user")
+	} else if err != nil {
+		s.errorHandler.Handle(err)
+
+		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
 	return &api.LoginResponse{
