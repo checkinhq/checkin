@@ -1,8 +1,6 @@
 package infrastructure
 
 import (
-	"net/http"
-
 	"github.com/go-kit/kit/log"
 	"github.com/goph/clock"
 	"github.com/goph/emperror"

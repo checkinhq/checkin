@@ -17,7 +17,7 @@ func TestUserRepository_FindByID(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 
@@ -32,7 +32,7 @@ func TestUserRepository_FindByID_NotFound(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	_, err = repo.FindByID(1)
 	assert.Equal(t, err, domain.ErrUserNotFound)
@@ -42,7 +42,7 @@ func TestUserRepository_FindByUID(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 
@@ -57,7 +57,7 @@ func TestUserRepository_FindByUID_NotFound(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	_, err = repo.FindByUID(ksuid.New())
 	assert.Equal(t, err, domain.ErrUserNotFound)
@@ -67,7 +67,7 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 
@@ -82,7 +82,7 @@ func TestUserRepository_FindByEmail_NotFound(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	_, err = repo.FindByEmail("john.doe@example.com")
 	assert.Equal(t, err, domain.ErrUserNotFound)
@@ -93,7 +93,7 @@ func TestUserRepository_Create(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 	u.ID = 0
@@ -114,7 +114,7 @@ func TestUserRepository_Update(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 
@@ -138,7 +138,7 @@ func TestUserRepository_CreateMore(t *testing.T) {
 	db, err := inmem.NewUserDB()
 	require.NoError(t, err)
 
-	repo := inmem.NewUserRepository(inmem.UserDB(db))
+	repo := inmem.NewUserRepository(inmem.Database(db))
 
 	u := newUser(t)
 	u.ID = 0

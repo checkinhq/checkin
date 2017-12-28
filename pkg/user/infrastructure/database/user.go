@@ -27,7 +27,7 @@ type userRepository struct {
 
 func NewUserRepository(db *sql.DB, opts ...Option) domain.UserRepository {
 	repo := &userRepository{
-		db:    db,
+		db: db,
 	}
 
 	for _, opt := range opts {
