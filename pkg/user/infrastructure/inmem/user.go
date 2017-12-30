@@ -50,40 +50,22 @@ type userRepository struct {
 	mu sync.Mutex
 }
 
-type Option func(repo *userRepository)
-
-func Database(db *memdb.MemDB) Option {
-	return func(repo *userRepository) {
-		repo.db = db
-	}
-}
-
-func Clock(c clock.Clock) Option {
-	return func(repo *userRepository) {
-		repo.clock = c
-	}
-}
-
 func NewUserRepository(opts ...Option) domain.UserRepository {
-	repo := new(userRepository)
-
-	for _, opt := range opts {
-		opt(repo)
-	}
+	o := newOptions(opts...)
 
 	// Default DB
-	if repo.db == nil {
+	if o.db == nil {
 		db, err := NewUserDB()
 		if err != nil {
 			panic(err)
 		}
 
-		repo.db = db
+		o.db = db
 	}
 
-	// Default clock
-	if repo.clock == nil {
-		repo.clock = clock.SystemClock
+	repo := &userRepository{
+		db:    o.db,
+		clock: o.clock,
 	}
 
 	return repo
