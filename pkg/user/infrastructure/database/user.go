@@ -16,15 +16,13 @@ type userRepository struct {
 }
 
 func NewUserRepository(db *sql.DB, opts ...Option) domain.UserRepository {
-	repo := &userRepository{
-		db: db,
-	}
-
 	o := newOptions(opts...)
 
-	repo.clock = o.clock
+	return &userRepository{
+		db: db,
 
-	return repo
+		clock: o.clock,
+	}
 }
 
 func (r *userRepository) FindByID(id int64) (*domain.User, error) {

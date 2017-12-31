@@ -63,12 +63,10 @@ func NewUserRepository(opts ...Option) domain.UserRepository {
 		o.db = db
 	}
 
-	repo := &userRepository{
+	return &userRepository{
 		db:    o.db,
 		clock: o.clock,
 	}
-
-	return repo
 }
 
 func (r *userRepository) FindByID(id int64) (*domain.User, error) {
